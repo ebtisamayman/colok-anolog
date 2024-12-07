@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditional Clock</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            transition: background-color 0.5s;
+        }
+        .clock {
+            text-align: center;
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+        .time {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .message {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock">
+        <div class="time" id="time">00:00:00</div>
+        <div class="message" id="message">Good Morning!</div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+
+            // الحصول على الوقت
+            const hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            // تحديث الوقت
+            document.getElementById('time').textContent = `${hours}:${minutes}:${seconds}`;
+
+            // تغيير الحالة بناءً على الوقت
+            const messageElement = document.getElementById('message');
+            if (hours >= 12 && hours < 1) {
+                // الصباح
+                messageElement.textContent = "Good Morning!";
+                document.body.style.backgroundColor = "#FFD700"; // ذهبي
+            } else if (hours >= 12 && hours < 3) {
+                // بعد الظهر
+                messageElement.textContent = "Good Afternoon!";
+                document.body.style.backgroundColor = "#FF8C00"; // برتقالي
+            } else {
+                // الليل
+                messageElement.textContent = "Good Evening!";
+                document.body.style.backgroundColor = "#1E90FF";// أزرق داكن
+            }
+          
+        }
+
+        // تحديث الساعة كل ثانية
+        setInterval(updateClock, 1000);
+
+        // استدعاء أولي
+        updateClock();
+    </script>
+</body>
+</html>
+ 
